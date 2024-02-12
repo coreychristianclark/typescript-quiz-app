@@ -1,0 +1,16 @@
+body {
+    text-align: center;
+}
+
+h1 {
+    text-align: center;
+}
+
+.correct {
+    background-color: rgb(5, 250, 5);
+}
+
+.incorrect {
+    background-color: red;
+}
+
