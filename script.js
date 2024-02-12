@@ -17,6 +17,8 @@ const answer = document.querySelector("#answer");
 
 document.addEventListener("DOMContentLoaded", (e) => {
   const choice = document.querySelectorAll(".choice");
+  const choice2 = document.querySelectorAll(".choice2");
+    const selectedChoice = choice.innerText.trim();
 
   const correctAnswers = {
     question1: "V8",
@@ -24,49 +26,46 @@ document.addEventListener("DOMContentLoaded", (e) => {
     question3: "Coat",
   };
 
-  choice.forEach(function (choice) {
-    choice.addEventListener("click", function () {
-      const selectedChoice = choice.innerText.trim();
+  const isCorrect = function (questionNum, selection) {
+    return correctAnswers[questionNum] === selection;
+  };
 
-      const isCorrect = function (question, selection) {
-        return correctAnswers[question] === selection;
-      };
-      // FIXING THE CONSOLE LOGS ACTIVATING FOR EACH ONE.
-      if (isCorrect("question1", selectedChoice)) {
-        console.log("nice");
-      } else {
-        console.log("wrong");
-      }
+    choice.forEach(function (option) {
+        option.addEventListener("click", (e) => {
+      
+            if (isCorrect("question1", selectedChoice)) {
+                console.log("nice");
+            } else {
+                console.log("not nice");
+            }
+        });
+    })
+  //   if (isCorrect("question2", selectedChoice)) {
+  //     console.log("extra nice");
+  //   } else {
+  //     console.log("extra not nice");
+  //   }
 
-      if (isCorrect("question2", selectedChoice)) {
-        console.log("Extra nice");
-      } else {
-        console.log("Extra wrong");
-      }
+  //   choice.forEach(function (option) {
+  //     option.addEventListener("click", function () {
+  //       const selectedChoice = option.innerText.trim();
 
-      if (isCorrect("Question3", selectedChoice)) {
-        console.log("Mega nice");
-      } else {
-        console.log("Mega wrong");
-      }
-      //   const choice2 = document.querySelectorAll(".choice2");
+  //       const isCorrect = function (questionNum, selection) {
+  //         return correctAnswers[questionNum] === selection;
+  //       };
 
-      //   choice2.forEach(function (choice2) {
-      //     choice2.addEventListener("click", function () {
-      //       if (isCorrect) {
-      //         console.log("Very nice");
-      //       } else {
-      //         console.log("Very wrong");
-      //   }
-      // });
-      //   });
-    });
-  });
+  //   if (isCorrect("question1", selectedChoice)) {
+  //     console.log("nice");
+  //   } else {
+  //     console.log("wrong");
+  //   }
+  // });
+  //   });
+  // });
+  // submit.addEventListener('submit', (e) => {
+  //     e.preventDefault
+
+  //     if (answer === 16) {
+  //         answer.correct
+  //     } answer.incorrect
 });
-// submit.addEventListener('submit', (e) => {
-//     e.preventDefault
-
-//     if (answer === 16) {
-//         answer.correct
-//     } answer.incorrect
-// })
