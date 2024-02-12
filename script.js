@@ -18,7 +18,6 @@ const answer = document.querySelector("#answer");
 document.addEventListener("DOMContentLoaded", (e) => {
   const choice = document.querySelectorAll(".choice");
   const choice2 = document.querySelectorAll(".choice2");
-    const selectedChoice = choice.innerText.trim();
 
   const correctAnswers = {
     question1: "V8",
@@ -32,6 +31,8 @@ document.addEventListener("DOMContentLoaded", (e) => {
 
     choice.forEach(function (option) {
         option.addEventListener("click", (e) => {
+                const selectedChoice = option.innerText.trim();
+
       
             if (isCorrect("question1", selectedChoice)) {
                 console.log("nice");
@@ -40,6 +41,21 @@ document.addEventListener("DOMContentLoaded", (e) => {
             }
         });
     })
+
+    choice2.forEach(function (option) {
+        option.addEventListener('click', e => {
+            const selectedChoice = option.innerText.trim();
+
+            if (isCorrect("question2", selectedChoice)) {
+                console.log("extra nice")
+            } else {
+                console.log("extra not nice")
+            }
+    })
+})
+
+
+
   //   if (isCorrect("question2", selectedChoice)) {
   //     console.log("extra nice");
   //   } else {
