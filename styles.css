@@ -1,5 +1,16 @@
+body {
+    background-image: url(./images/backgroundImage80opacity.png);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    font-family:sans-serif;
+    color: black;
+    
+}
+
 h1 {
     text-align: center;
+    font-size: 50px;
 }
 
 .correct {
@@ -8,5 +19,9 @@ h1 {
 
 .incorrect {
     background-color: red;
+}
+
+.bold {
+    font-weight: bold;
 }
 
