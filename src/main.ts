@@ -11,56 +11,37 @@ document.addEventListener("DOMContentLoaded", (e) => {
   let clickedElement: HTMLElement;
   let selectedChoice: string;
   let correctAnswer: string | boolean;
+
   // const userInput = clickedElement.value.trim();
 
+  function removeEffect(variable) {
+    variable.forEach((variable) => {
+      variable.classList.remove("bold");
+      variable.classList.remove("correct");
+      variable.classList.remove("incorrect");
+  })
+  }
 
-  // const questions: string[] = ["question1", "question2", "question3", "questionBonus"];
 
-  // const isCorrect = function (question: string, selection: string): boolean {
-  //   return questions[question] === selection;
-  // };
-
-
-  question1Container.addEventListener("toggle", (e) => {
+  question1Container.addEventListener("click", (e) => {
 
     clickedElement = e.target as HTMLElement;
     selectedChoice = clickedElement.innerText.trim();
     correctAnswer = "No";
+    removeEffect(choice);
 
-    clickedElement.classList.add(".bold");
+    clickedElement.classList.toggle("bold");
 
     if (selectedChoice === correctAnswer) {
       console.log("Nice!")
-      clickedElement.classList.add(".correct")
-
+      clickedElement.classList.add("correct")
     } else {
       console.log("not nice");
+      clickedElement.classList.add("incorrect");
     }
   });
 
-  // choice2.forEach(function (option) {
-  //   option.addEventListener("click", (e) => {
-  //     const selectedChoice = option.textContent.trim();
 
-  //     if (isCorrect("question2", selectedChoice)) {
-  //       console.log("extra nice");
-  //     } else {
-  //       console.log("extra not nice");
-  //     }
-  //   });
-  // });
-
-  // choice3.forEach(function (option) {
-  //   option.addEventListener("click", (e) => {
-  //     const selectedChoice = option.textContent.trim();
-
-  //     if (isCorrect("question3", selectedChoice)) {
-  //       console.log("ultra nice");
-  //     } else {
-  //       console.log("ultra not nice");
-  //     }
-  //   });
-  // });
 
   // submit.addEventListener("click", (e) => {
 

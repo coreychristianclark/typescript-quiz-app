@@ -1,5 +1,6 @@
 body {
     background-image: url(./images/backgroundImage80opacity.png);
+    background-color: lightblue;
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
@@ -18,19 +19,23 @@ p {
 }
 
 #question1Container {
+    display: flex;
+    flex-direction: column;
     border: 1px solid black;
     width: 15em;
 }
 
 .correct {
     background-color: rgb(5, 250, 5);
+    width: fit-content;
 }
 
 .incorrect {
     background-color: red;
+    width: fit-content;
 }
 
 .bold {
-    font-weight: bold;
+    font-weight: bolder;
 }
 

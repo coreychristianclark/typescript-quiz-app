@@ -9,43 +9,28 @@ document.addEventListener("DOMContentLoaded", function (e) {
     var selectedChoice;
     var correctAnswer;
     // const userInput = clickedElement.value.trim();
-    // const questions: string[] = ["question1", "question2", "question3", "questionBonus"];
-    // const isCorrect = function (question: string, selection: string): boolean {
-    //   return questions[question] === selection;
-    // };
-    question1Container.addEventListener("toggle", function (e) {
+    function removeEffect(variable) {
+        variable.forEach(function (variable) {
+            variable.classList.remove("bold");
+            variable.classList.remove("correct");
+            variable.classList.remove("incorrect");
+        });
+    }
+    question1Container.addEventListener("click", function (e) {
         clickedElement = e.target;
         selectedChoice = clickedElement.innerText.trim();
         correctAnswer = "No";
-        clickedElement.classList.add(".bold");
+        removeEffect(choice);
+        clickedElement.classList.toggle("bold");
         if (selectedChoice === correctAnswer) {
             console.log("Nice!");
-            clickedElement.classList.add(".correct");
+            clickedElement.classList.add("correct");
         }
         else {
             console.log("not nice");
+            clickedElement.classList.add("incorrect");
         }
     });
-    // choice2.forEach(function (option) {
-    //   option.addEventListener("click", (e) => {
-    //     const selectedChoice = option.textContent.trim();
-    //     if (isCorrect("question2", selectedChoice)) {
-    //       console.log("extra nice");
-    //     } else {
-    //       console.log("extra not nice");
-    //     }
-    //   });
-    // });
-    // choice3.forEach(function (option) {
-    //   option.addEventListener("click", (e) => {
-    //     const selectedChoice = option.textContent.trim();
-    //     if (isCorrect("question3", selectedChoice)) {
-    //       console.log("ultra nice");
-    //     } else {
-    //       console.log("ultra not nice");
-    //     }
-    //   });
-    // });
     // submit.addEventListener("click", (e) => {
     //   if (isCorrect("questionBonus", userInput)) {
     //     console.log("Outstanding!");
