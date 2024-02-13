@@ -21,7 +21,7 @@ document.addEventListener("DOMContentLoaded", (e) => {
       const selectedChoice = option.innerText.trim();
 
       if (isCorrect("question1", selectedChoice)) {
-        console.log("nice");
+        return "Nice!"
       } else {
         console.log("not nice");
       }
