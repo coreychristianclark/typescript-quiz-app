@@ -6,10 +6,10 @@ body {
     background-size: cover;
     font-family:sans-serif;
     color: black;
-    
 }
 
 h1 {
+    color:rgb(0, 0, 0);
     text-align: center;
     font-size: 50px;
 }
@@ -19,39 +19,50 @@ p {
     text-align: center;
 }
 
+#centeringContainer {
+width: 50%;
+margin: 0 auto;
+}
+
+#centeringContainer submit {
+width: 50%;
+margin: 0 auto;
+}
+
 #question1Container {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     grid-template-rows: auto repeat(2, 1fr);
     justify-content: center;
+    justify-items: center;
     align-items: start;
-    gap: 10px;
     border: 1px solid black;
-    width: 35em;
-    margin: auto;
-    border-radius: 1%;
+    height: 15em;
+    width: 100%;
     background-color: white;
-    padding: 20px;
 }
 
 .choice {
-    width: 90%;
-    margin: 5px;
+    height: 99%;
+    width: 99.5%;
     border: 1px solid black;
     cursor: pointer;
 }
 
+#submit {
+    margin: 0 auto;
+    
+}
+
 .correct {
     background-color: rgb(5, 250, 5);
-    width: fit-content;
 }
 
 .incorrect {
     background-color: red;
-    width: fit-content;
 }
 
-.bold {
-    font-weight: bolder;
+.selection {
+background-color: rgb(190, 181, 181);
 }
 

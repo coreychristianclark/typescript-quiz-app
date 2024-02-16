@@ -5,13 +5,18 @@ document.addEventListener("DOMContentLoaded", function (e) {
     var choice3 = document.querySelectorAll(".choice3");
     var bonus = document.querySelector("#bonus");
     var submit = document.querySelector("#submit");
+    var listOfQuestions = [
+        "Can browsers interpret TypeScript alone?",
+        "Who developed TypeScript?",
+        "What is a major to using TypeScript?",
+    ];
     var clickedElement;
     var selectedChoice;
     var correctAnswer;
     // const userInput = clickedElement.value.trim();
     function removeEffect(variable) {
         variable.forEach(function (variable) {
-            variable.classList.remove("bold");
+            variable.classList.remove("selection");
             variable.classList.remove("correct");
             variable.classList.remove("incorrect");
         });
@@ -21,7 +26,7 @@ document.addEventListener("DOMContentLoaded", function (e) {
         selectedChoice = clickedElement.innerText.trim();
         correctAnswer = "No";
         removeEffect(choice);
-        clickedElement.classList.toggle("bold");
+        clickedElement.classList.toggle("selection");
         if (selectedChoice === correctAnswer) {
             console.log("Nice!");
             clickedElement.classList.add("correct");
