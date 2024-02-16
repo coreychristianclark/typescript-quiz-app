@@ -15,14 +15,30 @@ h1 {
 }
 
 p {
+    grid-column: 1 / -1;
     text-align: center;
 }
 
 #question1Container {
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: auto repeat(2, 1fr);
+    justify-content: center;
+    align-items: start;
+    gap: 10px;
     border: 1px solid black;
-    width: 15em;
+    width: 35em;
+    margin: auto;
+    border-radius: 1%;
+    background-color: white;
+    padding: 20px;
+}
+
+.choice {
+    width: 90%;
+    margin: 5px;
+    border: 1px solid black;
+    cursor: pointer;
 }
 
 .correct {
