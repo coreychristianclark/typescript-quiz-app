@@ -1,11 +1,11 @@
-document.addEventListener("DOMContentLoaded", (e) => {
+document.addEventListener("DOMContentLoaded", () => {
 
   const question1Container = document.querySelector("#question1Container")
   const choice = document.querySelectorAll(".choice");
   const choice2 = document.querySelectorAll(".choice2");
   const choice3 = document.querySelectorAll(".choice3");
 
-  const bonus = document.querySelector("#bonus");
+  const form = document.querySelector("#form");
   const submit = document.querySelector("#submit");
 
   const listOfQuestions =
@@ -14,49 +14,57 @@ document.addEventListener("DOMContentLoaded", (e) => {
       "Who developed TypeScript?",
       "What is a major to using TypeScript?",
     ];
+  
+  const correctAnswer: number[] | string[] = [
+    "No",
+  ]
 
   let clickedElement: HTMLElement;
-  let selectedChoice: string;
-  let correctAnswer: string | boolean;
+  let selectedChoice: string | null = null;
 
-  // const userInput = clickedElement.value.trim();
-
-  function removeEffect(variable) {
-    variable.forEach((variable) => {
-      variable.classList.remove("selection");
-      variable.classList.remove("correct");
-      variable.classList.remove("incorrect");
-  })
+  function removeEffects() {
+    choice.forEach((choice) => {
+      choice.classList.remove('selection', 'correct', 'incorrect');
+    })
   }
+  
+    choice.forEach((choice) => {
+      choice.addEventListener('click', (e) => {
+        e.stopPropagation();      
+        removeEffects();
+      
+          clickedElement = e.target as HTMLElement; // Type assertion.
 
+          clickedElement.classList.add("selection");
 
-  question1Container.addEventListener("click", (e) => {
+          selectedChoice = clickedElement.innerText.trim();
+        
+    })
+  })
 
-    clickedElement = e.target as HTMLElement;
-    selectedChoice = clickedElement.innerText.trim();
-    correctAnswer = "No";
-    removeEffect(choice);
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    // removeEffects();
 
-    clickedElement.classList.toggle("selection");
+    // const selectedElement = selectedChoice as HTMLElement;
 
-    if (selectedChoice === correctAnswer) {
-      console.log("Nice!")
-      clickedElement.classList.add("correct")
+      if (selectedChoice !== null) {
+      
+
+        if (correctAnswer.includes(selectedChoice)) {
+          console.log("Nice!");
+
+        clickedElement.classList.replace('selection', 'correct');
+      } else {
+        console.log("not nice");
+        clickedElement.classList.replace('selection', 'incorrect');
+      }
     } else {
-      console.log("not nice");
-      clickedElement.classList.add("incorrect");
+        console.log("No answer selected.")
     }
-  });
+  })
 
 
 
-  // submit.addEventListener("click", (e) => {
-
-
-  //   if (isCorrect("questionBonus", userInput)) {
-  //     console.log("Outstanding!");
-  //   } else {
-  //     console.log("Not quite.");
-  //   }
-  // });
+////////////////////
 });

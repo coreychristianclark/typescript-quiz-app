@@ -50,8 +50,7 @@ margin: 0 auto;
 }
 
 #submit {
-    margin: 0 auto;
-    
+    position: absolute;   
 }
 
 .correct {
@@ -63,6 +62,6 @@ margin: 0 auto;
 }
 
 .selection {
-background-color: rgb(190, 181, 181);
+    background-color: rgb(190, 181, 181);
 }
 
