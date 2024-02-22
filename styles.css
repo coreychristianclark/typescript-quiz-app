@@ -29,6 +29,10 @@ width: 50%;
 margin: 0 auto;
 }
 
+#nextQuestion {
+    
+}
+
 #quizContainer {
     display: grid;
     grid-template-columns: repeat(2, 1fr);

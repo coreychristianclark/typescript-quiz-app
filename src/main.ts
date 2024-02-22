@@ -3,7 +3,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const questionText = document.querySelector('#questionText');
   const choicesContainer = document.querySelector('#choicesContainer');
   const explanationText = document.querySelector('#explanationText');
-  const nextQuestion = document.querySelector('#nextQuestion');
+  const nextQuestion = document.querySelector('#nextQuestion') as HTMLElement;
 
   const questionsChoicesAnswers =
     [
@@ -42,6 +42,15 @@ document.addEventListener("DOMContentLoaded", () => {
     questionText.textContent = currentQuestion.question; // Pulls the text from the 'question' category of the current index of the array.
 
     choicesContainer.innerHTML = ""; 
+    currentQuestion.choices.forEach((choice, index) => {
+      const choiceButton = document.createElement('button');
+      choiceButton.textContent = choice;
+      choiceButton.addEventListener('click', () => handleChoiceClick(choice));
+      choicesContainer.appendChild(choiceButton);
+    })
+
+    explanationText.textContent = ""; // Set to blank/empty by default.
+    nextQuestion.style.display = "none"; // Button does not appear until the question is answered/submitted.
 
   }
   

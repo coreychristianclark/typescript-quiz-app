@@ -32,6 +32,14 @@ document.addEventListener("DOMContentLoaded", function () {
         var currentQuestion = questionsChoicesAnswers[currentQuestionIndex]; // Starts at index 0 -- the first set.
         questionText.textContent = currentQuestion.question; // Pulls the text from the 'question' category of the current index of the array.
         choicesContainer.innerHTML = "";
+        currentQuestion.choices.forEach(function (choice, index) {
+            var choiceButton = document.createElement('button');
+            choiceButton.textContent = choice;
+            choiceButton.addEventListener('click', function () { return handleChoiceClick(choice); });
+            choicesContainer.appendChild(choiceButton);
+        });
+        explanationText.textContent = ""; // Set to blank/empty by default.
+        nextQuestion.style.display = "none"; // Button does not appear until the question is answered/submitted.
     }
     // choice.forEach((choice) => {
     //   choice.addEventListener('click', (e) => {
