@@ -1,51 +1,62 @@
 document.addEventListener("DOMContentLoaded", function () {
-    var question1Container = document.querySelector("#question1Container");
-    var choice = document.querySelectorAll(".choice");
-    var choice2 = document.querySelectorAll(".choice2");
-    var choice3 = document.querySelectorAll(".choice3");
-    var form = document.querySelector("#form");
-    var submit = document.querySelector("#submit");
-    var listOfQuestions = [
-        "Can browsers interpret TypeScript alone?",
-        "Who developed TypeScript?",
-        "What is a major to using TypeScript?",
+    var questionText = document.querySelector('#questionText');
+    var choicesContainer = document.querySelector('#choicesContainer');
+    var explanationText = document.querySelector('#explanationText');
+    var nextQuestion = document.querySelector('#nextQuestion');
+    var questionsChoicesAnswers = [
+        {
+            question: "Can browsers interpret TypeScript alone?",
+            choices: ["Yes", "Only Google Chrome Can", "No", "Only FireFox Can"],
+            answer: "No"
+        },
+        {
+            question: "Who developed TypeScript?",
+            choices: ["Brendan Eich", "Microsoft", "Google", "Apple"],
+            answer: "Microsoft"
+        },
+        {
+            question: "What is a major benefit to using TypeScript?",
+            choices: ["It Works With Any Language", "It's Not Strict", "It's Faster", "It Reduces Bugs And Errors"],
+            answer: "It Reduces Bugs And Errors"
+        },
     ];
-    var correctAnswer = [
-        "No",
-    ];
-    var clickedElement;
-    var selectedChoice = null;
-    function removeEffects() {
-        choice.forEach(function (choice) {
-            choice.classList.remove('selection', 'correct', 'incorrect');
-        });
+    var currentQuestionIndex = 0;
+    // let clickedElement: HTMLElement;
+    // let selectedChoice: string | null = null;
+    // function removeEffects() {
+    //   choice.forEach((choice) => {
+    //     choice.classList.remove('selection', 'correct', 'incorrect');
+    //   })
+    // }
+    function renderQuestion() {
+        var currentQuestion = questionsChoicesAnswers[currentQuestionIndex]; // Starts at index 0 -- the first set.
+        questionText.textContent = currentQuestion.question; // Pulls the text from the 'question' category of the current index of the array.
+        choicesContainer.innerHTML = "";
     }
-    choice.forEach(function (choice) {
-        choice.addEventListener('click', function (e) {
-            e.stopPropagation();
-            removeEffects();
-            clickedElement = e.target; // Type assertion.
-            clickedElement.classList.add("selection");
-            selectedChoice = clickedElement.innerText.trim();
-        });
-    });
-    form.addEventListener('submit', function (e) {
-        e.preventDefault();
-        // removeEffects();
-        // const selectedElement = selectedChoice as HTMLElement;
-        if (selectedChoice !== null) {
-            if (correctAnswer.includes(selectedChoice)) {
-                console.log("Nice!");
-                clickedElement.classList.replace('selection', 'correct');
-            }
-            else {
-                console.log("not nice");
-                clickedElement.classList.replace('selection', 'incorrect');
-            }
-        }
-        else {
-            console.log("No answer selected.");
-        }
-    });
+    // choice.forEach((choice) => {
+    //   choice.addEventListener('click', (e) => {
+    //     e.stopPropagation();      
+    //       removeEffects();
+    //     clickedElement = e.target as HTMLElement; // Type assertion.
+    //     clickedElement.classList.add("selection");
+    //     selectedChoice = clickedElement.innerText.trim();
+    //   })
+    // })
+    // form.addEventListener('submit', (e) => {
+    //   e.preventDefault();
+    //   // removeEffects();
+    //   // const selectedElement = selectedChoice as HTMLElement;
+    //     if (selectedChoice !== null) {
+    //       if (correctAnswer.includes(selectedChoice)) {
+    //         console.log("Nice!");
+    //       clickedElement.classList.replace('selection', 'correct');
+    //     } else {
+    //       console.log("not nice");
+    //       clickedElement.classList.replace('selection', 'incorrect');
+    //     }
+    //   } else {
+    //       console.log("No answer selected.")
+    //   }
+    // })
     ////////////////////
 });
