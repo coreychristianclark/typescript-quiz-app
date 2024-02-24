@@ -29,14 +29,7 @@ document.addEventListener("DOMContentLoaded", () => {
   
   let currentQuestionIndex: number = 0;
 
-  // let clickedElement: HTMLElement;
-  // let selectedChoice: string | null = null;
 
-  // function removeEffects() {
-  //   choice.forEach((choice) => {
-  //     choice.classList.remove('selection', 'correct', 'incorrect');
-  //   })
-  // }
 
   function renderQuestion() {
     const currentQuestion = questionsChoicesAnswers[currentQuestionIndex]; // Starts at index 0 -- the first set.
@@ -47,27 +40,46 @@ document.addEventListener("DOMContentLoaded", () => {
       const choiceButtons = document.createElement('button');
       choiceButtons.textContent = choice;
       choiceButtons.className = 'choiceButtons';
-      choiceButtons.addEventListener('click', () => handleChoiceClick(choice));
+      choiceButtons.addEventListener('click', function() {handleChoiceClick(this)}); // 'this' being the HTML button element.
       choicesContainer.appendChild(choiceButtons);
           // choiceButtons.style.display = "block"
-
     })
 
     explanationText.textContent = ""; // Set to blank/empty by default.
     nextQuestion.style.display = "block"; // Button does not appear until the question is answered/submitted.
 ///////////////////////// change display to "none" when done!
   }
+
+  function removeEffects() {
+    const buttons = document.querySelectorAll('.choiceButtons'); // This is not re-declaring 'choiceButtons'. It is simply gathering any buttons that have that class identification.
+    buttons.forEach((button) => {
+      button.classList.remove('selection', 'correct', 'incorrect');
+    })
+}
+
+
   
-  function handleChoiceClick(clickedChoice) {
+  function handleChoiceClick(clickedButton) {
+        removeEffects();
+
+    let clickedElement = clickedButton as HTMLElement;
+    let choiceText = clickedButton.textContent; // Obtains the text content from the clicked button.
     const currentQuestion = questionsChoicesAnswers[currentQuestionIndex]; // Starts at idex 0 -- the first set.
-    if (clickedChoice === currentQuestion.answer) {
-      console.log("Good!")
+
+    clickedElement.classList.add('selection');
+
+
+    if (choiceText === currentQuestion.answer) {
+      console.log("Good!");
+      clickedElement.classList.add('correct');
     } else {
-      console.log("Wrong.")
+      console.log("Wrong.");
+      clickedElement.classList.add('incorrect');
     }
 
+
     if (currentQuestionIndex < questionsChoicesAnswers.length) {
-      renderQuestion();
+      // renderQuestion();
     } else {
       // Completed. All questions answered.
       questionText.textContent = "Quiz complete!";

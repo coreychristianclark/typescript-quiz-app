@@ -22,13 +22,6 @@ document.addEventListener("DOMContentLoaded", function () {
         },
     ];
     var currentQuestionIndex = 0;
-    // let clickedElement: HTMLElement;
-    // let selectedChoice: string | null = null;
-    // function removeEffects() {
-    //   choice.forEach((choice) => {
-    //     choice.classList.remove('selection', 'correct', 'incorrect');
-    //   })
-    // }
     function renderQuestion() {
         var currentQuestion = questionsChoicesAnswers[currentQuestionIndex]; // Starts at index 0 -- the first set.
         questionText.textContent = currentQuestion.question; // Pulls the text from the 'question' category of the current index of the array.
@@ -37,7 +30,7 @@ document.addEventListener("DOMContentLoaded", function () {
             var choiceButtons = document.createElement('button');
             choiceButtons.textContent = choice;
             choiceButtons.className = 'choiceButtons';
-            choiceButtons.addEventListener('click', function () { return handleChoiceClick(choice); });
+            choiceButtons.addEventListener('click', function () { handleChoiceClick(this); }); // 'this' being the HTML button element.
             choicesContainer.appendChild(choiceButtons);
             // choiceButtons.style.display = "block"
         });
@@ -45,16 +38,28 @@ document.addEventListener("DOMContentLoaded", function () {
         nextQuestion.style.display = "block"; // Button does not appear until the question is answered/submitted.
         ///////////////////////// change display to "none" when done!
     }
-    function handleChoiceClick(clickedChoice) {
+    function removeEffects() {
+        var buttons = document.querySelectorAll('.choiceButtons'); // This is not re-declaring 'choiceButtons'. It is simply gathering any buttons that have that class identification.
+        buttons.forEach(function (button) {
+            button.classList.remove('selection', 'correct', 'incorrect');
+        });
+    }
+    function handleChoiceClick(clickedButton) {
+        removeEffects();
+        var clickedElement = clickedButton;
+        var choiceText = clickedButton.textContent; // Obtains the text content from the clicked button.
         var currentQuestion = questionsChoicesAnswers[currentQuestionIndex]; // Starts at idex 0 -- the first set.
-        if (clickedChoice === currentQuestion.answer) {
+        clickedElement.classList.add('selection');
+        if (choiceText === currentQuestion.answer) {
             console.log("Good!");
+            clickedElement.classList.add('correct');
         }
         else {
             console.log("Wrong.");
+            clickedElement.classList.add('incorrect');
         }
         if (currentQuestionIndex < questionsChoicesAnswers.length) {
-            renderQuestion();
+            // renderQuestion();
         }
         else {
             // Completed. All questions answered.
