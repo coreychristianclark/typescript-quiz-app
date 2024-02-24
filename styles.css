@@ -14,47 +14,60 @@ h1 {
     font-size: 50px;
 }
 
-p {
+#centeringContainer {
+    width: 50%;
+    margin: 0 auto;
+}
+
+#questionText {
     grid-column: 1 / -1;
     text-align: center;
-}
-
-#centeringContainer {
-width: 50%;
-margin: 0 auto;
-}
-
-#centeringContainer submit {
-width: 50%;
-margin: 0 auto;
-}
-
-#nextQuestion {
-    
+    font-weight: bold;
+    font-size: 35px;
 }
 
 #quizContainer {
+    height: 99%;
+    width: 100%;
+    border: 1px black solid;
+}
+
+#choicesContainer {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     grid-template-rows: auto repeat(2, 1fr);
     justify-content: center;
     justify-items: center;
     align-items: start;
-    border: 1px solid black;
-    height: 15em;
+    height: 16.03em;
     width: 100%;
     background-color: white;
 }
 
-.choice {
-    height: 99%;
-    width: 99%;
-    border: 1px solid black;
+.choiceButtons {
+    display: flex;
+    justify-content: center;
+    justify-items: center;
+    align-items: center;
+    border: 1px black solid;
+    height: 20vh;
+    width: 100%;
     cursor: pointer;
 }
 
 #submit {
-    position: absolute;   
+    cursor: pointer;
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+#nextQuestion {
+    cursor: pointer;
+    background-color: rgb(97, 245, 97);
+    position: absolute;
+    right: 25.5%;
+
 }
 
 .correct {

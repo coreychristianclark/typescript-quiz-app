@@ -3,6 +3,7 @@ document.addEventListener("DOMContentLoaded", function () {
     var choicesContainer = document.querySelector('#choicesContainer');
     var explanationText = document.querySelector('#explanationText');
     var nextQuestion = document.querySelector('#nextQuestion');
+    var form = document.querySelector('#form');
     var questionsChoicesAnswers = [
         {
             question: "Can browsers interpret TypeScript alone?",
@@ -32,39 +33,37 @@ document.addEventListener("DOMContentLoaded", function () {
         var currentQuestion = questionsChoicesAnswers[currentQuestionIndex]; // Starts at index 0 -- the first set.
         questionText.textContent = currentQuestion.question; // Pulls the text from the 'question' category of the current index of the array.
         choicesContainer.innerHTML = "";
-        currentQuestion.choices.forEach(function (choice, index) {
-            var choiceButton = document.createElement('button');
-            choiceButton.textContent = choice;
-            choiceButton.addEventListener('click', function () { return handleChoiceClick(choice); });
-            choicesContainer.appendChild(choiceButton);
+        currentQuestion.choices.forEach(function (choice) {
+            var choiceButtons = document.createElement('button');
+            choiceButtons.textContent = choice;
+            choiceButtons.className = 'choiceButtons';
+            choiceButtons.addEventListener('click', function () { return handleChoiceClick(choice); });
+            choicesContainer.appendChild(choiceButtons);
+            // choiceButtons.style.display = "block"
         });
         explanationText.textContent = ""; // Set to blank/empty by default.
-        nextQuestion.style.display = "none"; // Button does not appear until the question is answered/submitted.
+        nextQuestion.style.display = "block"; // Button does not appear until the question is answered/submitted.
+        ///////////////////////// change display to "none" when done!
     }
-    // choice.forEach((choice) => {
-    //   choice.addEventListener('click', (e) => {
-    //     e.stopPropagation();      
-    //       removeEffects();
-    //     clickedElement = e.target as HTMLElement; // Type assertion.
-    //     clickedElement.classList.add("selection");
-    //     selectedChoice = clickedElement.innerText.trim();
-    //   })
-    // })
-    // form.addEventListener('submit', (e) => {
-    //   e.preventDefault();
-    //   // removeEffects();
-    //   // const selectedElement = selectedChoice as HTMLElement;
-    //     if (selectedChoice !== null) {
-    //       if (correctAnswer.includes(selectedChoice)) {
-    //         console.log("Nice!");
-    //       clickedElement.classList.replace('selection', 'correct');
-    //     } else {
-    //       console.log("not nice");
-    //       clickedElement.classList.replace('selection', 'incorrect');
-    //     }
-    //   } else {
-    //       console.log("No answer selected.")
-    //   }
-    // })
+    function handleChoiceClick(clickedChoice) {
+        var currentQuestion = questionsChoicesAnswers[currentQuestionIndex]; // Starts at idex 0 -- the first set.
+        if (clickedChoice === currentQuestion.answer) {
+            console.log("Good!");
+        }
+        else {
+            console.log("Wrong.");
+        }
+        if (currentQuestionIndex < questionsChoicesAnswers.length) {
+            renderQuestion();
+        }
+        else {
+            // Completed. All questions answered.
+            questionText.textContent = "Quiz complete!";
+            choicesContainer.innerHTML = ""; // No choices to list.
+            explanationText.textContent = ""; // No questions to explain.
+            nextQuestion.style.display = "none"; // No need for a next button.
+        }
+    }
+    renderQuestion(); // Initial rendering.
     ////////////////////
 });
