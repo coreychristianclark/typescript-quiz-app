@@ -31,18 +31,22 @@ document.addEventListener("DOMContentLoaded", function () {
             var choiceButtons = document.createElement('button');
             choiceButtons.textContent = choice;
             choiceButtons.className = 'choiceButtons';
-            choiceButtons.addEventListener('click', function () { handleChoiceClick(this); }); // 'this' being the HTML button element.
+            choiceButtons.addEventListener('click', function () {
+                handleChoiceClick(this);
+            });
             choicesContainer.appendChild(choiceButtons);
-            // choiceButtons.style.display = "block"
+            choiceButtons.style.display = "block";
         });
         explanationText.textContent = ""; // Set to blank/empty by default.
         nextQuestion.style.display = "block"; // Button does not appear until the question is answered/submitted.
-        ///////////////////////// change display to "none" when done!
+        ///////////////////////// *********change display to "none" when done!*************
     }
     function removeEffects() {
         var buttons = document.querySelectorAll('.choiceButtons'); // This is not re-declaring 'choiceButtons'. It is simply gathering any buttons that have that class identification.
         buttons.forEach(function (button) {
-            button.classList.remove('selection', 'correct', 'incorrect');
+            if (button instanceof HTMLElement) {
+                button.classList.remove('selection', 'correct', 'incorrect');
+            }
         });
     }
     function handleChoiceClick(clickedButton) {
@@ -75,6 +79,7 @@ document.addEventListener("DOMContentLoaded", function () {
             explanationText.textContent = ""; // No questions to explain.
             nextQuestion.style.display = "none"; // No need for a next button.
         }
+        // renderQuestion();
     });
     renderQuestion(); // Initial rendering.
     ////////////////////

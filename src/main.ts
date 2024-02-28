@@ -1,15 +1,21 @@
 document.addEventListener("DOMContentLoaded", () => {
 
-  const questionText = document.querySelector('#questionText');
-  const choicesContainer = document.querySelector('#choicesContainer');
-  const explanationText = document.querySelector('#explanationText');
+  const questionText = document.querySelector('#questionText') as HTMLElement;
+  const choicesContainer = document.querySelector('#choicesContainer') as HTMLElement;
+  const explanationText = document.querySelector('#explanationText') as HTMLElement;
   const nextQuestion = document.querySelector('#nextQuestion') as HTMLElement;
-  const form = document.querySelector('#form');
+  const form = document.querySelector('#form') as HTMLFormElement;
 
   let currentQuestionIndex: number = 0;
-  let selectedChoice = null as HTMLElement; // Keeps track of selected choice.
+  let selectedChoice: HTMLElement | null = null; // Keeps track of selected choice.
 
-  const questionsChoicesAnswers =
+  type QuestionChoiceAnswer = { // Always remember to capitalize.
+    question: string,
+    choices: string[],
+    answer: string;
+}
+
+  const questionsChoicesAnswers: QuestionChoiceAnswer[] =
     [
       {
         question: "Can browsers interpret TypeScript alone?",
@@ -33,7 +39,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 
-  function renderQuestion() {
+  function renderQuestion(): void { // This function merely provides a service. Thus, it's output is void.
     const currentQuestion = questionsChoicesAnswers[currentQuestionIndex]; // Starts at index 0 -- the first set.
     questionText.textContent = currentQuestion.question; // Pulls the text from the 'question' category of the current index of the array.
 
@@ -42,26 +48,30 @@ document.addEventListener("DOMContentLoaded", () => {
       const choiceButtons = document.createElement('button');
       choiceButtons.textContent = choice;
       choiceButtons.className = 'choiceButtons';
-      choiceButtons.addEventListener('click', function() {handleChoiceClick(this)}); // 'this' being the HTML button element.
+      choiceButtons.addEventListener('click', function (this: HTMLButtonElement) { // 'this' being the HTML button element.
+        handleChoiceClick(this);
+      });
       choicesContainer.appendChild(choiceButtons);
-          // choiceButtons.style.display = "block"
+      choiceButtons.style.display = "block";
     })
 
     explanationText.textContent = ""; // Set to blank/empty by default.
     nextQuestion.style.display = "block"; // Button does not appear until the question is answered/submitted.
-///////////////////////// change display to "none" when done!
+///////////////////////// *********change display to "none" when done!*************
   }
 
-  function removeEffects() {
+  function removeEffects(): void { // This function merely provides a service. Thus, it's output is void.
     const buttons = document.querySelectorAll('.choiceButtons'); // This is not re-declaring 'choiceButtons'. It is simply gathering any buttons that have that class identification.
     buttons.forEach((button) => {
-      button.classList.remove('selection', 'correct', 'incorrect');
+      if (button instanceof HTMLElement) {
+        button.classList.remove('selection', 'correct', 'incorrect');
+      }
     })
 }
 
 
   
-  function handleChoiceClick(clickedButton) {
+  function handleChoiceClick(clickedButton: HTMLElement): void { // This function merely provides a service. Thus, it's output is void.
     removeEffects();
     
     clickedButton.classList.add('selection');
@@ -98,6 +108,8 @@ document.addEventListener("DOMContentLoaded", () => {
       explanationText.textContent = ""; // No questions to explain.
       nextQuestion.style.display = "none"; // No need for a next button.
     }
+
+    // renderQuestion();
   })
 
   renderQuestion(); // Initial rendering.
