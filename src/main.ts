@@ -2,13 +2,16 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const questionText = document.querySelector('#questionText') as HTMLElement;
   const choicesContainer = document.querySelector('#choicesContainer') as HTMLElement;
+  const explanationContainer = document.querySelector('#explanationContainer') as HTMLElement;
   const explanationText = document.querySelector('#explanationText') as HTMLElement;
   const nextQuestion = document.querySelector('#nextQuestion') as HTMLElement;
   const form = document.querySelector('#form') as HTMLFormElement;
-  const explanationText = document.querySelector('#explanationText') as HTMLElement;
+  const submit = document.querySelector('#submit') as HTMLElement;
+
 
   let currentQuestionIndex: number = 0;
   let selectedChoice: HTMLElement | null = null; // Keeps track of selected choice.
+  let isCorrectAnswerSubmitted = false;
 
   type QuestionChoiceAnswer = { // Always remember to capitalize.
     question: string,
@@ -58,11 +61,19 @@ document.addEventListener("DOMContentLoaded", () => {
       choiceButtons.style.display = "block";
     })
 
+    explanationContainer.style.display = "none"; // Hidden by default -- only appears when the correct answer is submitted.
     explanationText.textContent = ""; // Set to blank/empty by default.
-    nextQuestion.style.display = "block"; // Button does not appear until the question is answered/submitted.
-///////////////////////// *********change display to "none" when done!*************
+    nextQuestion.style.display = "none"; // Button does not appear until the question is answered/submitted.
   }
 
+  
+  function handleChoiceClick(clickedButton: HTMLElement): void { // This function merely provides a service. Thus, it's output is void.
+    removeEffects();
+    
+    clickedButton.classList.add('selection');
+    selectedChoice = clickedButton; // Tracks the selected choice.
+  }
+  
 
   function removeEffects(): void { // This function merely provides a service. Thus, it's output is void.
     const buttons = document.querySelectorAll('.choiceButtons'); // This is not re-declaring 'choiceButtons'. It is simply gathering any buttons that have that class identification.
@@ -71,15 +82,18 @@ document.addEventListener("DOMContentLoaded", () => {
         button.classList.remove('selection', 'correct', 'incorrect');
       }
     })
-}
-
+  }
   
-  function handleChoiceClick(clickedButton: HTMLElement): void { // This function merely provides a service. Thus, it's output is void.
-    removeEffects();
-    
-    clickedButton.classList.add('selection');
-    selectedChoice = clickedButton; // Tracks the selected choice.
- }
+
+  function disableChoiceButtons(): void {
+    const buttons = document.querySelectorAll('.choiceButtons');
+    buttons.forEach(button => {
+      if (button instanceof HTMLButtonElement) {
+        button.disabled = true;
+      }
+      button.classList.add('choiceButtons')
+    });
+  }
 
   
   form.addEventListener('submit', (e) => {
@@ -96,29 +110,32 @@ document.addEventListener("DOMContentLoaded", () => {
       if (choiceText === currentQuestion.answer) {
       console.log("Good!");
         selectedChoice.classList.replace('selection', 'correct');
+        explanationContainer.style.display = "block";
         explanationText.textContent = currentQuestion.explanation;
+        nextQuestion.style.display = "block";
+        isCorrectAnswerSubmitted = true;
+        submit.style.display = "none";
+        disableChoiceButtons();
     } else {
       console.log("Wrong.");
       selectedChoice.classList.replace('selection', 'incorrect');
     }
 
-
-
-      if (currentQuestionIndex < questionsChoicesAnswers.length) {
-    } else {
       // // Completed. All questions answered.
       // questionText.textContent = "Quiz complete!";
       // choicesContainer.innerHTML = ""; // No choices to list.
       // explanationText.textContent = ""; // No questions to explain.
       // nextQuestion.style.display = "none"; // No need for a next button.
-    }
 
     // renderQuestion();
   })
 
   nextQuestion.addEventListener('click', (e) => {
 
-    if (currentQuestionIndex < questionsChoicesAnswers.length) {
+    submit.style.display = "block";
+
+
+    if (currentQuestionIndex < questionsChoicesAnswers.length && isCorrectAnswerSubmitted === true) {
       renderQuestion();
     } else {
       // Completed. All questions answered.
