@@ -62,9 +62,23 @@ h1 {
     transform: translate(-50%, -50%);
 }
 
+#explanationContainer {
+    text-align: center;
+    height: 5em;
+    width: 100%;
+    border: 1px solid black;
+    background-color: rgb(5, 250, 5);
+}
+
+#explanationText {
+    color: black;
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
 #nextQuestion {
     cursor: pointer;
-    background-color: rgb(97, 245, 97);
+    background-color: rgb(5, 250, 5);
     position: absolute;
     right: 25.5%;
 
