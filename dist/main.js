@@ -4,6 +4,8 @@ document.addEventListener("DOMContentLoaded", function () {
     var explanationText = document.querySelector('#explanationText');
     var nextQuestion = document.querySelector('#nextQuestion');
     var form = document.querySelector('#form');
+    var currentQuestionIndex = 0;
+    var selectedChoice = null; // Keeps track of selected choice.
     var questionsChoicesAnswers = [
         {
             question: "Can browsers interpret TypeScript alone?",
@@ -21,7 +23,6 @@ document.addEventListener("DOMContentLoaded", function () {
             answer: "It Reduces Bugs And Errors"
         },
     ];
-    var currentQuestionIndex = 0;
     function renderQuestion() {
         var currentQuestion = questionsChoicesAnswers[currentQuestionIndex]; // Starts at index 0 -- the first set.
         questionText.textContent = currentQuestion.question; // Pulls the text from the 'question' category of the current index of the array.
@@ -46,20 +47,26 @@ document.addEventListener("DOMContentLoaded", function () {
     }
     function handleChoiceClick(clickedButton) {
         removeEffects();
-        var clickedElement = clickedButton;
-        var choiceText = clickedButton.textContent; // Obtains the text content from the clicked button.
+        clickedButton.classList.add('selection');
+        selectedChoice = clickedButton; // Tracks the selected choice.
+    }
+    form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        if (!selectedChoice) {
+            console.log("Please select a choice."); // *****Turn into an alert later.*****
+            return;
+        }
         var currentQuestion = questionsChoicesAnswers[currentQuestionIndex]; // Starts at idex 0 -- the first set.
-        clickedElement.classList.add('selection');
+        var choiceText = selectedChoice.textContent; // Obtains the text content from the clicked button.
         if (choiceText === currentQuestion.answer) {
             console.log("Good!");
-            clickedElement.classList.add('correct');
+            selectedChoice.classList.replace('selection', 'correct');
         }
         else {
             console.log("Wrong.");
-            clickedElement.classList.add('incorrect');
+            selectedChoice.classList.replace('selection', 'incorrect');
         }
         if (currentQuestionIndex < questionsChoicesAnswers.length) {
-            // renderQuestion();
         }
         else {
             // Completed. All questions answered.
@@ -68,7 +75,7 @@ document.addEventListener("DOMContentLoaded", function () {
             explanationText.textContent = ""; // No questions to explain.
             nextQuestion.style.display = "none"; // No need for a next button.
         }
-    }
+    });
     renderQuestion(); // Initial rendering.
     ////////////////////
 });

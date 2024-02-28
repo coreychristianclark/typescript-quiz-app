@@ -6,6 +6,9 @@ document.addEventListener("DOMContentLoaded", () => {
   const nextQuestion = document.querySelector('#nextQuestion') as HTMLElement;
   const form = document.querySelector('#form');
 
+  let currentQuestionIndex: number = 0;
+  let selectedChoice = null as HTMLElement; // Keeps track of selected choice.
+
   const questionsChoicesAnswers =
     [
       {
@@ -27,7 +30,6 @@ document.addEventListener("DOMContentLoaded", () => {
       },
     ];
   
-  let currentQuestionIndex: number = 0;
 
 
 
@@ -60,26 +62,35 @@ document.addEventListener("DOMContentLoaded", () => {
 
   
   function handleChoiceClick(clickedButton) {
-        removeEffects();
+    removeEffects();
+    
+    clickedButton.classList.add('selection');
+    selectedChoice = clickedButton; // Tracks the selected choice.
+ }
 
-    let clickedElement = clickedButton as HTMLElement;
-    let choiceText = clickedButton.textContent; // Obtains the text content from the clicked button.
+  
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+
+    if (!selectedChoice) {
+      console.log("Please select a choice."); // *****Turn into an alert later.*****
+      return;
+    }
+
     const currentQuestion = questionsChoicesAnswers[currentQuestionIndex]; // Starts at idex 0 -- the first set.
+    const choiceText = selectedChoice.textContent; // Obtains the text content from the clicked button.
 
-    clickedElement.classList.add('selection');
-
-
-    if (choiceText === currentQuestion.answer) {
+      if (choiceText === currentQuestion.answer) {
       console.log("Good!");
-      clickedElement.classList.add('correct');
+      selectedChoice.classList.replace('selection', 'correct');
     } else {
       console.log("Wrong.");
-      clickedElement.classList.add('incorrect');
+      selectedChoice.classList.replace('selection', 'incorrect');
     }
 
 
-    if (currentQuestionIndex < questionsChoicesAnswers.length) {
-      // renderQuestion();
+
+      if (currentQuestionIndex < questionsChoicesAnswers.length) {
     } else {
       // Completed. All questions answered.
       questionText.textContent = "Quiz complete!";
@@ -87,8 +98,9 @@ document.addEventListener("DOMContentLoaded", () => {
       explanationText.textContent = ""; // No questions to explain.
       nextQuestion.style.display = "none"; // No need for a next button.
     }
-  }
+  })
 
   renderQuestion(); // Initial rendering.
+
 ////////////////////
-});
+})
