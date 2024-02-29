@@ -7,6 +7,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const nextQuestion = document.querySelector('#nextQuestion') as HTMLElement;
   const form = document.querySelector('#form') as HTMLFormElement;
   const submit = document.querySelector('#submit') as HTMLElement;
+  const startOver = document.querySelector('#startOver') as HTMLElement;
 
 
   let currentQuestionIndex: number = 0;
@@ -36,18 +37,21 @@ document.addEventListener("DOMContentLoaded", () => {
         explanation: "Good job! TypeScript is a Microsoft product, but the credit goes to Anders Hejlsberg for developing it. Development of TypeScript was announced in October 2012 and its popularity grew rather quickly."
       },
 
-      {
-        question: "What is a major benefit to using TypeScript?",
-        choices: ["It Works With Any Language", "It's Not Strict", "It's Faster", "It Reduces Bugs And Errors"],
-        answer: "It Reduces Bugs And Errors",
-        explanation: "Excellent work! TypeScript is a strongly-typed superset of JavaScript. Due to its static nature and need for exactness, it helps developers catch bugs and errors very quickly, as opposed to vanilla JavaScript that will let many errors slide without notice."
-      },
+      // {
+      //   question: "What is a major benefit to using TypeScript?",
+      //   choices: ["It Works With Any Language", "It's Not Strict", "It's Faster", "It Reduces Bugs And Errors"],
+      //   answer: "It Reduces Bugs And Errors",
+      //   explanation: "Excellent work! TypeScript is a strongly-typed superset of JavaScript. Due to its static nature and need for exactness, it helps developers catch bugs and errors very quickly, as opposed to vanilla JavaScript that will let many errors slide without notice."
+      // },
     ];
   
 
   function renderQuestion(): void { // This function merely provides a service. Thus, it's output is void.
+
     const currentQuestion = questionsChoicesAnswers[currentQuestionIndex]; // Starts at index 0 -- the first set.
     questionText.textContent = currentQuestion.question; // Pulls the text from the 'question' category of the current index of the array.
+
+
 
     choicesContainer.innerHTML = ""; 
     currentQuestion.choices.forEach((choice) => {
@@ -60,7 +64,7 @@ document.addEventListener("DOMContentLoaded", () => {
       choicesContainer.appendChild(choiceButtons);
       choiceButtons.style.display = "block";
     })
-
+    startOver.style.display = "none"; // Button will not appear until the final question has been submitted correctly.
     explanationContainer.style.display = "none"; // Hidden by default -- only appears when the correct answer is submitted.
     explanationText.textContent = ""; // Set to blank/empty by default.
     nextQuestion.style.display = "none"; // Button does not appear until the question is answered/submitted.
@@ -100,7 +104,7 @@ document.addEventListener("DOMContentLoaded", () => {
     e.preventDefault();
 
     if (!selectedChoice) {
-      console.log("Please select a choice."); // *****Turn into an alert later.*****
+      alert("Please select a choice.");
       return;
     }
 
@@ -120,30 +124,32 @@ document.addEventListener("DOMContentLoaded", () => {
       console.log("Wrong.");
       selectedChoice.classList.replace('selection', 'incorrect');
     }
-
-      // // Completed. All questions answered.
-      // questionText.textContent = "Quiz complete!";
-      // choicesContainer.innerHTML = ""; // No choices to list.
-      // explanationText.textContent = ""; // No questions to explain.
-      // nextQuestion.style.display = "none"; // No need for a next button.
-
-    // renderQuestion();
   })
+
 
   nextQuestion.addEventListener('click', (e) => {
 
-    submit.style.display = "block";
-
-
     if (currentQuestionIndex < questionsChoicesAnswers.length && isCorrectAnswerSubmitted === true) {
+      currentQuestionIndex++;
       renderQuestion();
+      submit.style.display = "block";
+
     } else {
-      // Completed. All questions answered.
+      // Completed. All questions answered correctly.
       questionText.textContent = "Quiz complete!";
       choicesContainer.innerHTML = ""; // No choices to list.
       explanationText.textContent = ""; // No questions to explain.
       nextQuestion.style.display = "none"; // No need for a next button.
+      // submit.style.display = "none"; // Nothing further to submit.
+      startOver.style.display = "block";
     }
+  })
+
+
+  startOver.addEventListener('click', (e) => {
+    currentQuestionIndex = 0;
+    renderQuestion();
+    submit.style.display = "block";
   })
 
   renderQuestion(); // Initial rendering.
