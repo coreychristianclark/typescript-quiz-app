@@ -22,6 +22,7 @@ document.addEventListener("DOMContentLoaded", () => {
 }
 
   const questionsChoicesAnswers: QuestionChoiceAnswer[] =
+    
     [
       {
         question: "Can browsers interpret TypeScript alone?",
@@ -47,11 +48,10 @@ document.addEventListener("DOMContentLoaded", () => {
   
 
   function renderQuestion(): void { // This function merely provides a service. Thus, it's output is void.
+    selectedChoice = null;
 
     const currentQuestion = questionsChoicesAnswers[currentQuestionIndex]; // Starts at index 0 -- the first set.
     questionText.textContent = currentQuestion.question; // Pulls the text from the 'question' category of the current index of the array.
-
-
 
     choicesContainer.innerHTML = ""; 
     currentQuestion.choices.forEach((choice) => {
@@ -89,18 +89,24 @@ document.addEventListener("DOMContentLoaded", () => {
   }
   
 
-  function disableChoiceButtons(): void {
+  function disableChoiceButtons(correctButton): void {
     const buttons = document.querySelectorAll('.choiceButtons');
     buttons.forEach(button => {
-      if (button instanceof HTMLButtonElement) {
-        button.disabled = true;
+      button.classList.add('disabled');
+
+      button.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation(); // Prevents the click event from propagating further up the event list.
+      }, true); // Ensures this runs before any other click listeners.
+
+      if (button === correctButton) {
+        button.classList.remove('disabled');
       }
-      button.classList.add('choiceButtons')
     });
   }
 
   
-  form.addEventListener('submit', (e) => {
+  form.addEventListener('click', (e) => {
     e.preventDefault();
 
     if (!selectedChoice) {
@@ -119,9 +125,10 @@ document.addEventListener("DOMContentLoaded", () => {
         nextQuestion.style.display = "block";
         isCorrectAnswerSubmitted = true;
         submit.style.display = "none";
-        disableChoiceButtons();
+        disableChoiceButtons(selectedChoice);
+
     } else {
-      console.log("Wrong.");
+        console.log("Wrong.");
       selectedChoice.classList.replace('selection', 'incorrect');
     }
   })
@@ -129,7 +136,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   nextQuestion.addEventListener('click', (e) => {
 
-    if (currentQuestionIndex < questionsChoicesAnswers.length && isCorrectAnswerSubmitted === true) {
+    if (currentQuestionIndex < questionsChoicesAnswers.length - 1 && isCorrectAnswerSubmitted === true) { // The '-1' will prevent it from incrementing beyond the length of the array.
       currentQuestionIndex++;
       renderQuestion();
       submit.style.display = "block";

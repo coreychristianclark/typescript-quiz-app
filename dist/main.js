@@ -31,6 +31,7 @@ document.addEventListener("DOMContentLoaded", function () {
         // },
     ];
     function renderQuestion() {
+        selectedChoice = null;
         var currentQuestion = questionsChoicesAnswers[currentQuestionIndex]; // Starts at index 0 -- the first set.
         questionText.textContent = currentQuestion.question; // Pulls the text from the 'question' category of the current index of the array.
         choicesContainer.innerHTML = "";
@@ -62,16 +63,20 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         });
     }
-    function disableChoiceButtons() {
+    function disableChoiceButtons(correctButton) {
         var buttons = document.querySelectorAll('.choiceButtons');
         buttons.forEach(function (button) {
-            if (button instanceof HTMLButtonElement) {
-                button.disabled = true;
+            button.classList.add('disabled');
+            button.addEventListener('click', function (e) {
+                e.preventDefault();
+                e.stopPropagation(); // Prevents the click event from propagating further up the event list.
+            }, true); // Ensures this runs before any other click listeners.
+            if (button === correctButton) {
+                button.classList.remove('disabled');
             }
-            button.classList.add('choiceButtons');
         });
     }
-    form.addEventListener('submit', function (e) {
+    form.addEventListener('click', function (e) {
         e.preventDefault();
         if (!selectedChoice) {
             alert("Please select a choice.");
@@ -87,7 +92,7 @@ document.addEventListener("DOMContentLoaded", function () {
             nextQuestion.style.display = "block";
             isCorrectAnswerSubmitted = true;
             submit.style.display = "none";
-            disableChoiceButtons();
+            disableChoiceButtons(selectedChoice);
         }
         else {
             console.log("Wrong.");
@@ -95,7 +100,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
     nextQuestion.addEventListener('click', function (e) {
-        if (currentQuestionIndex < questionsChoicesAnswers.length && isCorrectAnswerSubmitted === true) {
+        if (currentQuestionIndex < questionsChoicesAnswers.length - 1 && isCorrectAnswerSubmitted === true) { // The '-1' will prevent it from incrementing beyond the length of the array.
             currentQuestionIndex++;
             renderQuestion();
             submit.style.display = "block";

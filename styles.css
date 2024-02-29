@@ -29,16 +29,19 @@ h1 {
 }
 
 #questionText {
-    grid-column: 1 / -1;
+    /* grid-column: 1 / -1; */
     text-align: center;
     font-weight: bold;
-    font-size: 35px;
+    font-size: 30px;
+    height: 2em;
+    margin-left: 10px;
+    margin-right: 10px;
 }
 
 #quizContainer {
     left: 50%;
     height: 90%;
-    width: 50%;
+    width: 100%;
     border: 1px black solid;
     background-color: rgb(234, 216, 251);
 }
@@ -103,6 +106,12 @@ h1 {
 
 .selection {
     background-color: rgb(190, 181, 181);
+    color: black;
+}
+
+.disabled {
+    color: gray;
+    background-color: rbg(190, 181, 181);
 }
 
 
