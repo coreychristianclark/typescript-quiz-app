@@ -1,14 +1,16 @@
 document.addEventListener("DOMContentLoaded", () => {
 
+  const h1 = document.querySelector('#h1') as HTMLElement;
+  const quizCompletedText = document.querySelector('.quizCompletedText') as HTMLElement;
+  const quizContainer = document.querySelector('#quizContainer') as HTMLElement;
   const questionText = document.querySelector('#questionText') as HTMLElement;
   const choicesContainer = document.querySelector('#choicesContainer') as HTMLElement;
   const explanationContainer = document.querySelector('#explanationContainer') as HTMLElement;
   const explanationText = document.querySelector('#explanationText') as HTMLElement;
-  const nextQuestion = document.querySelector('#nextQuestion') as HTMLElement;
+  const nextQuestionButton = document.querySelector('#nextQuestionButton') as HTMLElement;
   const form = document.querySelector('#form') as HTMLFormElement;
   const submit = document.querySelector('#submit') as HTMLElement;
   const startOver = document.querySelector('#startOver') as HTMLElement;
-
 
   let currentQuestionIndex: number = 0;
   let selectedChoice: HTMLElement | null = null; // Keeps track of selected choice.
@@ -31,12 +33,12 @@ document.addEventListener("DOMContentLoaded", () => {
         explanation: "Correct! TypeScript alone cannot be understood by web browsers. TypeScript needs to be transpiled (converted) into JavaScript because a web browser can execute it."
       },
 
-      {
-        question: "Who developed TypeScript?",
-        choices: ["Brendan Eich", "Microsoft", "Google", "Anders Hejlsberg"],
-        answer: "Anders Hejlsberg",
-        explanation: "Good job! TypeScript is a Microsoft product, but the credit goes to Anders Hejlsberg for developing it. Development of TypeScript was announced in October 2012 and its popularity grew rather quickly."
-      },
+      // {
+      //   question: "Who developed TypeScript?",
+      //   choices: ["Brendan Eich", "Microsoft", "Google", "Anders Hejlsberg"],
+      //   answer: "Anders Hejlsberg",
+      //   explanation: "Good job! TypeScript is a Microsoft product, but the credit goes to Anders Hejlsberg for developing it. Development of TypeScript was announced in October 2012 and its popularity grew rather quickly."
+      // },
 
       // {
       //   question: "What is a major benefit to using TypeScript?",
@@ -67,7 +69,7 @@ document.addEventListener("DOMContentLoaded", () => {
     startOver.style.display = "none"; // Button will not appear until the final question has been submitted correctly.
     explanationContainer.style.display = "none"; // Hidden by default -- only appears when the correct answer is submitted.
     explanationText.textContent = ""; // Set to blank/empty by default.
-    nextQuestion.style.display = "none"; // Button does not appear until the question is answered/submitted.
+    nextQuestionButton.style.display = "none"; // Button does not appear until the question is answered/submitted.
   }
 
   
@@ -122,7 +124,7 @@ document.addEventListener("DOMContentLoaded", () => {
         selectedChoice.classList.replace('selection', 'correct');
         explanationContainer.style.display = "block";
         explanationText.textContent = currentQuestion.explanation;
-        nextQuestion.style.display = "block";
+        nextQuestionButton.style.display = "block";
         isCorrectAnswerSubmitted = true;
         submit.style.display = "none";
         disableChoiceButtons(selectedChoice);
@@ -134,7 +136,7 @@ document.addEventListener("DOMContentLoaded", () => {
   })
 
 
-  nextQuestion.addEventListener('click', (e) => {
+  nextQuestionButton.addEventListener('click', (e) => {
 
     if (currentQuestionIndex < questionsChoicesAnswers.length - 1 && isCorrectAnswerSubmitted === true) { // The '-1' will prevent it from incrementing beyond the length of the array.
       currentQuestionIndex++;
@@ -142,20 +144,26 @@ document.addEventListener("DOMContentLoaded", () => {
       submit.style.display = "block";
 
     } else {
-      // Completed. All questions answered correctly.
-      questionText.textContent = "Quiz complete!";
-      choicesContainer.innerHTML = ""; // No choices to list.
-      explanationText.textContent = ""; // No questions to explain.
-      nextQuestion.style.display = "none"; // No need for a next button.
-      // submit.style.display = "none"; // Nothing further to submit.
+      // Completed.
+      h1.style.display = "none";
+      quizCompletedText.style.display = "block";
+      // quizCompletedText.classList.add('quizCompletedText');
       startOver.style.display = "block";
+      quizContainer.style.display = "none";
+      choicesContainer.innerHTML = ""; // No choices to list.
+      explanationContainer.style.display = "none";
+      explanationText.textContent = ""; // No questions to explain.
+      nextQuestionButton.style.display = "none"; // No need for a next button.
     }
   })
 
 
   startOver.addEventListener('click', (e) => {
+    quizCompletedText.style.display = "none";
+    h1.style.display = "block";
     currentQuestionIndex = 0;
     renderQuestion();
+    quizContainer.style.display = "block";
     submit.style.display = "block";
   })
 
