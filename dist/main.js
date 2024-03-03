@@ -1,6 +1,7 @@
 document.addEventListener("DOMContentLoaded", function () {
     var h1 = document.querySelector('#h1');
     var quizCompletedText = document.querySelector('.quizCompletedText');
+    var quizCompletedTextContainer = document.querySelector('#quizCompletedTextContainer');
     var quizContainer = document.querySelector('#quizContainer');
     var questionText = document.querySelector('#questionText');
     var choicesContainer = document.querySelector('#choicesContainer');
@@ -9,7 +10,7 @@ document.addEventListener("DOMContentLoaded", function () {
     var nextQuestionButton = document.querySelector('#nextQuestionButton');
     var form = document.querySelector('#form');
     var submit = document.querySelector('#submit');
-    var startOver = document.querySelector('#startOver');
+    var startOverButton = document.querySelector('#startOverButton');
     var currentQuestionIndex = 0;
     var selectedChoice = null; // Keeps track of selected choice.
     var isCorrectAnswerSubmitted = false;
@@ -48,7 +49,7 @@ document.addEventListener("DOMContentLoaded", function () {
             choicesContainer.appendChild(choiceButtons);
             choiceButtons.style.display = "block";
         });
-        startOver.style.display = "none"; // Button will not appear until the final question has been submitted correctly.
+        startOverButton.style.display = "none"; // Button will not appear until the final question has been submitted correctly.
         explanationContainer.style.display = "none"; // Hidden by default -- only appears when the correct answer is submitted.
         explanationText.textContent = ""; // Set to blank/empty by default.
         nextQuestionButton.style.display = "none"; // Button does not appear until the question is answered/submitted.
@@ -111,17 +112,18 @@ document.addEventListener("DOMContentLoaded", function () {
         else {
             // Completed.
             h1.style.display = "none";
-            quizCompletedText.style.display = "block";
-            // quizCompletedText.classList.add('quizCompletedText');
-            startOver.style.display = "block";
             quizContainer.style.display = "none";
-            choicesContainer.innerHTML = ""; // No choices to list.
+            choicesContainer.innerHTML = "";
             explanationContainer.style.display = "none";
-            explanationText.textContent = ""; // No questions to explain.
-            nextQuestionButton.style.display = "none"; // No need for a next button.
+            explanationText.textContent = "";
+            nextQuestionButton.style.display = "none";
+            quizCompletedTextContainer.style.display = "block";
+            quizCompletedText.style.display = "block";
+            startOverButton.style.display = "block";
         }
     });
-    startOver.addEventListener('click', function (e) {
+    startOverButton.addEventListener('click', function (e) {
+        quizCompletedTextContainer.style.display = "none";
         quizCompletedText.style.display = "none";
         h1.style.display = "block";
         currentQuestionIndex = 0;
