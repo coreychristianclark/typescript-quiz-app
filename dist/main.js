@@ -19,20 +19,20 @@ document.addEventListener("DOMContentLoaded", function () {
             question: "Can browsers interpret TypeScript alone?",
             choices: ["Yes", "Only Google Chrome Can", "No", "Only FireFox Can"],
             answer: "No",
-            explanation: "Correct! TypeScript alone cannot be understood by web browsers. TypeScript needs to be transpiled (converted) into JavaScript because a web browser can execute it."
+            explanation: "Correct! TypeScript alone cannot be understood by web browsers. TypeScript needs to be transpiled (converted) into JavaScript so a web browser can execute it."
         },
-        // {
-        //   question: "Who developed TypeScript?",
-        //   choices: ["Brendan Eich", "Microsoft", "Google", "Anders Hejlsberg"],
-        //   answer: "Anders Hejlsberg",
-        //   explanation: "Good job! TypeScript is a Microsoft product, but the credit goes to Anders Hejlsberg for developing it. Development of TypeScript was announced in October 2012 and its popularity grew rather quickly."
-        // },
-        // {
-        //   question: "What is a major benefit to using TypeScript?",
-        //   choices: ["It Works With Any Language", "It's Not Strict", "It's Faster", "It Reduces Bugs And Errors"],
-        //   answer: "It Reduces Bugs And Errors",
-        //   explanation: "Excellent work! TypeScript is a strongly-typed superset of JavaScript. Due to its static nature and need for exactness, it helps developers catch bugs and errors very quickly, as opposed to vanilla JavaScript that will let many errors slide without notice."
-        // },
+        {
+            question: "Who developed TypeScript?",
+            choices: ["Brendan Eich", "Microsoft", "Google", "Anders Hejlsberg"],
+            answer: "Anders Hejlsberg",
+            explanation: "Good job! TypeScript is a Microsoft product, but the credit goes to Anders Hejlsberg for developing it. Development of TypeScript was announced in October 2012 and its popularity grew rather quickly."
+        },
+        {
+            question: "What is a major benefit to using TypeScript?",
+            choices: ["It Works With Any Language", "It's Not Strict", "It's Faster", "It Reduces Bugs And Errors"],
+            answer: "It Reduces Bugs And Errors",
+            explanation: "Excellent work! TypeScript is a strongly-typed superset of JavaScript. Due to its static nature and need for exactness, it helps developers catch bugs and errors very quickly, as opposed to vanilla JavaScript, which will let many errors slide without notice."
+        },
     ];
     function renderQuestion() {
         selectedChoice = null;
