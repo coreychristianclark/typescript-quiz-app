@@ -47,17 +47,17 @@ h1 {
     font-weight: bold;
     word-wrap: break-word;
     font-size: 30px;
-    height: 2em;
+    height: auto;
     margin-left: 10px;
     margin-right: 10px;
 }
 
 #quizContainer {
     margin-top: -10px;
-    margin-bottom: 11em;
+    margin-bottom: 1em;
     width: 100%;
     background-color: rgb(234, 216, 251);
-    height: 120px;
+    height: auto;
     border: 0.1px solid black;
 }
 
