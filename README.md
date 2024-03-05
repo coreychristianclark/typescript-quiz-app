@@ -1,5 +1,7 @@
 # TypeScript Quiz Desktop
 
+--**Viewing experience is best with Google Chrome.**--
+
 A simple, non-traditional, visually-appealing quiz application designed to increase one's knowledge and understanding of TypeScript.
 
 This project wasn't meant to be anything huge or original. I wanted to create something small using my newly-acquired knowledge of TypeScript in order to reinforce concepts.
