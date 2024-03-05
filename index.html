@@ -11,33 +11,46 @@
 
 <body>
 
-    <h1>TypeScript Quiz</h1>
+    <h1 id="h1">TypeScript 
+        <br>
+        Quiz
+    </h1>
+
+    <div id="quizCompletedTextContainer" style="display: none">
+
+    <div id="quizCompletedText" style="display: none">Quiz
+        <br>
+        Completed!</div>
+        <br>
+
+    <button id="startOverButton">Start Over</button>
+
+    </div>
 
     <div id="centeringContainer">
 
     <div id="quizContainer">
         <div id="questionContainer">
             <p id="questionText"></p>
-            <div id="choicesContainer">
-            <!-- <div class="choiceButtons"></div> -->
-            </div>
+                <div id="choicesContainer"></div>
+
+        </div>
     </div>
-</div>
-<!-- Placement of these divs is not 100% set in stone -->
+
     <div id="explanationContainer">
-        <p id="explanationText"></p>
+        <div id="explanationText"></div>
+
     </div>
 
     <br>
 
-            <form id="form">
-                <button id="submit" type="submit">Submit</button>
-                </form>
+        <form id="form">
+            <button id="submit" type="submit">Submit</button>
+        </form>
 
-                <br>
+            <button id="nextQuestionButton">Next Question</button>
 
-            <button id="nextQuestion">Next Question</button>
-
+            <br>
     </div>
     
 </body>
