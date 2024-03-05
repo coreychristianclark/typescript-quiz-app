@@ -145,7 +145,7 @@ h1 {
      1px  1px 0 #000;
 }
 
-.quizCompletedText {
+#quizCompletedText {
     display: block;
     text-align: center;
     font-size: 100px;
