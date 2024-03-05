@@ -1,7 +1,4 @@
-# TypeScript Quiz Application
-
---**View on desktop for the best experience.**--
-
+# TypeScript Quiz Desktop
 
 A simple, non-traditional, visually-appealing quiz application designed to increase one's knowledge and understanding of TypeScript.
 
